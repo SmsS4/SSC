@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "presenters",
+  "info": {
+    "singularName": "presenter",
+    "pluralName": "presenters",
+    "displayName": "Presenter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+    "last_name": {
+      "type": "string",
+      "required": true
+    },
+    "bio": {
+      "type": "text"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "presentations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::presentation.presentation",
+      "inversedBy": "presenters"
+    }
+  }
+}

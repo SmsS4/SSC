@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_blog_blocks",
+  "info": {
+    "displayName": "Block",
+    "icon": "bars"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    },
+    "media": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
