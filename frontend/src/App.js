@@ -27,7 +27,7 @@ function App() {
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      />
+    />
     <React.Fragment>
       <Router>
         <NavigationBar />
