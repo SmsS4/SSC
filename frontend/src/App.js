@@ -8,10 +8,26 @@ import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
-
+import {getBlogs} from './StrApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  getBlogs((x) => {});
   return (
+    <>
+    <ToastContainer
+      position="top-right"
+      theme="dark"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     <React.Fragment>
       <Router>
         <NavigationBar />
@@ -25,6 +41,7 @@ function App() {
         </Switch>
       </Router>
     </React.Fragment>
+    </>
   );
 }
 

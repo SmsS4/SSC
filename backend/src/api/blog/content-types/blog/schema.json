@@ -25,6 +25,9 @@
       "type": "component",
       "repeatable": true,
       "component": "blog.tag"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
