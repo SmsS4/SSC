@@ -35,6 +35,11 @@
       "relation": "manyToOne",
       "target": "api::writer.writer",
       "inversedBy": "blogs"
+    },
+    "is_presentation": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

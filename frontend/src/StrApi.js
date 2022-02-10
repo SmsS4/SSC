@@ -83,6 +83,7 @@ function getWriters(callback, pageNumber) {
 
 function searchWriters(callback, value, pageNumber) {
     let q = {
+        sort: ['publishedAt:asc'],
         filters: contains(value, ['first_name', 'last_name']),
         pagination: {
             pageSize: defaultPageSize,
@@ -94,6 +95,7 @@ function searchWriters(callback, value, pageNumber) {
 
 function searchBlogs(callback, value, pageNumber) {
     let q = {
+        sort: ['publishedAt:asc'],
         filters: contains(
             value,
             ['title'],

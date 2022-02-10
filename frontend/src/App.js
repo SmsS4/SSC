@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import {search, searchBlogs, searchWriters, getBlogs, setPageSize} from './StrApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AntSideBar from './components/AntSideBar'
 
 function App() {
   // setPageSize(1);
@@ -30,8 +31,12 @@ function App() {
       draggable
       pauseOnHover
     />
+
     <React.Fragment>
       <Router>
+        {/* <AntSideBar />
+         */}
+        
         <NavigationBar />
 
         <Sidebar />
