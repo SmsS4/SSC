@@ -8,12 +8,14 @@ import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
-import {getBlogs} from './StrApi';
+import {search, searchBlogs, searchWriters, getBlogs, setPageSize} from './StrApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  getBlogs((x) => {});
+  // setPageSize(1);
+  search((x) => {console.log(x)}, "agha", 1);
+  
   return (
     <>
     <ToastContainer

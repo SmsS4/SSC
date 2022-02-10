@@ -21,13 +21,20 @@
       "repeatable": true,
       "component": "blog.block"
     },
-    "tags": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blog.tag"
-    },
     "description": {
       "type": "text"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "blogs"
+    },
+    "writer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::writer.writer",
+      "inversedBy": "blogs"
     }
   }
 }
