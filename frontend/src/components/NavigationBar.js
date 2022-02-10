@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
 import DynamicSearchBar from './DynamicSearchBar'
+import SearchBar from "material-ui-search-bar";
 
 
 import styled from 'styled-components';
@@ -26,7 +27,7 @@ export const NavigationBar = () => (
     <Navbar expand="lg">
       {/* <Navbar.Brand>SCC</Navbar.Brand> */}
       {/* <Navbar.Toggle aria-controls="basic-navbar-nav"/> */}
-      <DynamicSearchBar />
+      <SearchBar style={{  marginLeft: '60px'}}/>
       {/* <Form className="form-center">
         <FormControl type="text" placeholder="Search" className="" />
       </Form> */}
