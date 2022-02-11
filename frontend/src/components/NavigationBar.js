@@ -1,10 +1,9 @@
 import React from 'react';
 import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
-import DynamicSearchBar from './DynamicSearchBar'
-import SearchBar from "material-ui-search-bar";
-
+import SearchFiled from './SearchField'
 
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 const Styles = styled.div`
   .navbar { background-color: #222; }
   a, .navbar-nav, .navbar-light .nav-link {
@@ -22,12 +21,20 @@ const Styles = styled.div`
     right: 25%;
   }
 `;
-export const NavigationBar = () => (
-  <Styles>
+
+
+function NavigationBar({searchBlogsAndWriters}) {
+  const history = useHistory();
+  console.log(history);
+
+  return (
+    <Styles>
     <Navbar expand="lg">
       {/* <Navbar.Brand>SCC</Navbar.Brand> */}
       {/* <Navbar.Toggle aria-controls="basic-navbar-nav"/> */}
-      <SearchBar style={{  marginLeft: '60px'}}/>
+      <SearchFiled
+        callback={(value) => {searchBlogsAndWriters(value, history)}}
+      />
       {/* <Form className="form-center">
         <FormControl type="text" placeholder="Search" className="" />
       </Form> */}
@@ -39,4 +46,8 @@ export const NavigationBar = () => (
       </Navbar.Collapse> */}
     </Navbar>
   </Styles>
-)
+  )
+}
+
+export default NavigationBar
+

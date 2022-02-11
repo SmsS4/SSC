@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import qs from 'qs'
 import {STR_API_ADDRESS} from './config'
+import { ORIGINAL, SMALL } from './enums';
 const URL = STR_API_ADDRESS;
 
 let defaultPageSize = 10;
@@ -85,6 +86,7 @@ function searchWriters(callback, value, pageNumber) {
     let q = {
         sort: ['publishedAt:asc'],
         filters: contains(value, ['first_name', 'last_name']),
+        populate: ['avatar'],
         pagination: {
             pageSize: defaultPageSize,
             page: pageNumber,
@@ -96,6 +98,7 @@ function searchWriters(callback, value, pageNumber) {
 function searchBlogs(callback, value, pageNumber) {
     let q = {
         sort: ['publishedAt:asc'],
+        populate: ['writer', 'writer.avatar'],
         filters: contains(
             value,
             ['title'],
@@ -115,17 +118,20 @@ function searchBlogs(callback, value, pageNumber) {
 
 function search(callback, value, pageNumber) {
     const wrapperCallback = (writers) => {
-        console.log(writers)
         searchBlogs((blogs)=>{
             callback(
-                {'writers': writers, 'blogs': blogs},
+                {'writers': writers, 'blogs': blogs}
             )
         }, value, pageNumber)
     };
     searchWriters(wrapperCallback, value, pageNumber)
 }
 
-export {search, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
+function appendStrUrl(url) {
+    return STR_API_ADDRESS + url
+}
+
+export {defaultPageSize, appendStrUrl, search, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
 
 
 
