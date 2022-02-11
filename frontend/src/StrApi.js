@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import qs from 'qs'
-// const URL = process.env.STR_API_ADDRESS;
-const URL = "http://localhost:1337";
+import {STR_API_ADDRESS} from './config'
+const URL = STR_API_ADDRESS;
 
 let defaultPageSize = 10;
 

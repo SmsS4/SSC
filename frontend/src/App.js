@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AntSideBar from './components/AntSideBar'
 import ListViewer from './ListShower';
+import {STR_API_ADDRESS} from './config'
 
 function App() {
   // setPageSize(1);

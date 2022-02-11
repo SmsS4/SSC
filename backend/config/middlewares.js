@@ -1,4 +1,4 @@
-module.exports = [
+module.exports =  ({ env }) => ([
   'strapi::errors',
   'strapi::security',
   'strapi::cors',
@@ -9,4 +9,9 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-];
+  // {
+  //   resolve: 'src/api/tag/middlewares/my-middleware.js',
+  //   config: {},
+  // },
+
+]);
