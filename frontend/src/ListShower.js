@@ -8,6 +8,7 @@ import { STR_API_ADDRESS } from './config';
 import { appendStrUrl } from './StrApi';
 import { useState } from 'react';
 import { Button } from 'antd/lib/radio';
+import { useHistory } from 'react-router';
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -19,6 +20,7 @@ const IconText = ({ icon, text }) => (
 function ListViewer({
   getDataMethod,
   listViewerSearchFor,
+  clickCallback,
 }) {
     
     const [pageNumber, setPageNumber] = useState(1);
@@ -52,7 +54,8 @@ function ListViewer({
           content: blog.attributes.description,
           likes: 0,
           comments: 0,
-          uid: 'b' + blog.id,
+          type:'blog',
+          uid: blog.id,
         });
       })
       if (checkPageDone(value)) {
@@ -69,9 +72,10 @@ function ListViewer({
           image: appendStrUrl(writer.attributes.avatar.data.attributes.url),
           description: writer.attributes.createdAt,
           content: writer.attributes.bio,
-          likes: 0,
-          comments: 0,
-          uid: 'w' + writer.id,
+          likes: null,
+          comments: null,
+          type:'writer',
+          uid: writer.id,
         });
       })
       if (checkPageDone(value)) {
@@ -115,7 +119,8 @@ function ListViewer({
           content: content,
           likes: null,
           comments: null,
-          uid: 't' + tag.id,
+          uid: tag.id,
+          type:'tag',
         });
       })
       if (checkPageDone(value)){
@@ -144,7 +149,7 @@ function ListViewer({
       setLoading(true)
       getDataMethod(dataCallback, pageNumber + 1)
     }
-
+    const history = useHistory()
     const loadMore = !loading && !fetchedAll ? (
       <div
         style={{
@@ -157,15 +162,20 @@ function ListViewer({
         <Button onClick={onLoadMore}>loading more</Button>
       </div>
     ) : null;
-      
     function renderItem(item) {
       return (
       <List.Item
-        key={item.uid}
+        key={item.type + item.uid}
+        style={{
+          cursor: 'pointer',
+        }}
         actions={[
           (item.likes == null || <IconText icon={LikeOutlined} text={item.likes} key="list-vertical-like-o" />),
           (item.comments == null || <IconText icon={MessageOutlined} text={item.comments} key="list-vertical-message" />),
         ]}
+        onClick = {() => {
+            clickCallback(item, history)
+        }}
         extra={
           <img
             width={172}
@@ -176,7 +186,7 @@ function ListViewer({
       >
       <List.Item.Meta
         avatar={<Avatar src={item.avatar} />}
-        title={<a href={item.href}>{item.title}</a>}
+        title={item.title}
         description={item.description}
       />
       {item.content}

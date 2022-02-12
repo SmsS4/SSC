@@ -24,7 +24,6 @@ const StyledSideNav = styled.div`
 
 function SideNav(props) {
     const [activeName, updateActiveName] = (useState("HOME"))
-    const [activePath, updateActivePath] = useState(props.location.pathname);
     const state = {
         items: [
             {
@@ -61,10 +60,6 @@ function SideNav(props) {
     }
     const items = state.items;
     const history = useHistory()
-    // const onItemClick = (path) => {
-    //     /// updateActivePath(path);
-    //     props.onPathChanged(path, history)
-    // }
     return (
         <StyledSideNav>
             {
@@ -75,7 +70,6 @@ function SideNav(props) {
                             name={item.name}
                             css={item.css}
                             onItemClick={
-                                /// onItemClick
                                 (path) => {
                                     updateActiveName(item.name)
                                     props.onPathChanged(item.name, history)
