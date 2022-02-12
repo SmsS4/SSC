@@ -13,5 +13,10 @@ module.exports =  ({ env }) => ([
   //   resolve: 'src/api/tag/middlewares/my-middleware.js',
   //   config: {},
   // },
-
+  {
+    resolve: 'middlewares/prom.js',
+    config: {
+      port: env("PROMETHEUS_PORT")
+    },
+  },
 ]);

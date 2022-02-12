@@ -16,6 +16,7 @@
     "@strapi/plugin-users-permissions": "4.0.7",
     "@strapi/strapi": "4.0.7",
     "dotenv": "^16.0.0",
+    "prom-client": "^14.0.1",
     "sqlite3": "5.0.2",
     "strapi-middleware-cache": "^2.1.7",
     "strapi-plugin-entity-relationship-chart": "^4.0.2"
