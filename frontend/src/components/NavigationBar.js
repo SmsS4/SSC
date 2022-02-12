@@ -23,7 +23,7 @@ const Styles = styled.div`
 `;
 
 
-function NavigationBar({searchBlogsAndWriters}) {
+function NavigationBar({onChange}) {
   const history = useHistory();
   console.log(history);
 
@@ -33,7 +33,8 @@ function NavigationBar({searchBlogsAndWriters}) {
       {/* <Navbar.Brand>SCC</Navbar.Brand> */}
       {/* <Navbar.Toggle aria-controls="basic-navbar-nav"/> */}
       <SearchFiled
-        callback={(value) => {searchBlogsAndWriters(value, history)}}
+        callback={(value) => {onChange(value, history)}}
+        onChange={(value) => {onChange(value, history)}}
       />
       {/* <Form className="form-center">
         <FormControl type="text" placeholder="Search" className="" />

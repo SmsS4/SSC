@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 import {useState } from "react";
 
+
+import { useHistory } from "react-router-dom";
+
 const StyledSideNav = styled.div`   
     position: fixed;     /* Fixed Sidebar (stay in place on scroll and position relative to viewport) */
     height: 100%;
@@ -25,23 +28,24 @@ function SideNav(props) {
               key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
             },
             {
-              path: '/about',
-              name: 'About',
-              css: 'fa fa-fw fa-clock',
+              path: '/writers',
+              name: 'Writers',
+              css: 'fas fa-chalkboard-teacher',
               key: 2
             },
             {
-              path: '/NoMatch',
-              name: 'NoMatch',
+              path: '/tags',
+              name: 'Tags',
               css: 'fas fa-hashtag',
               key: 3
             },
           ]
     }
     const items = state.items;
-
+    const history = useHistory()
     const onItemClick = (path) => {
         updateActivePath(path);
+        props.onPathChanged(path)
     }
     return (
         <StyledSideNav>
@@ -102,9 +106,9 @@ function NavItem(props){
 
 const NavIcon = styled.div``;
 
-function Sidebar() {
+function Sidebar({onPathChanged}) {
     return (
-        <RouterSideNav></RouterSideNav>
+        <RouterSideNav onPathChanged={onPathChanged} ></RouterSideNav>
     );
 }
 

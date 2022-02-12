@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { List, Avatar, Space } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-import { SEARCH_FOR_BLOGS_AND_WRITERS } from './enums';
+import { SEARCH_FOR_BLOGS_AND_WRITERS, SEARCH_FOR_TAGS } from './enums';
 import { STR_API_ADDRESS } from './config';
 import { appendStrUrl } from './StrApi';
 import { useState } from 'react';
@@ -16,16 +16,25 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-function ListViewer({getDataMethod, listViewerSearchFor}) {
-    console.log("render list viewer")
+function ListViewer({
+  getDataMethod,
+  listViewerSearchFor,
+}) {
+    
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(true);
     const [fetchedAll, setFetchedAll] = useState(false);
     const [listData, setListData] = useState([])
+    React.useEffect(() => {
+      console.log("Page number is ", pageNumber);
+      console.log("calling get data")
+      getDataMethod(dataCallback, pageNumber)
+    }, []);
 
     const checkPageDone = (data) => {
       return data.meta.pagination.page >= data.meta.pagination.pageCount
     }
+
     function renderBlogsAndWriters(value) {
       console.log('renderBlogsAndWriters', pageNumber);
       value.writers.data.forEach((writer) =>{
@@ -34,7 +43,7 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
           title: writer.attributes.first_name + ' ' + writer.attributes.last_name,
           avatar: appendStrUrl(writer.attributes.avatar.data.attributes.formats.thumbnail.url),
           image: appendStrUrl(writer.attributes.avatar.data.attributes.url),
-          description: writer.attributes.bio,
+          description: writer.attributes.createdAt,
           content: writer.attributes.bio,
           likes: 0,
           comments: 0,
@@ -53,7 +62,7 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
           title: blog.attributes.title ,
           avatar: icon,
           image: image,
-          description: blog.attributes.description,
+          description: blog.attributes.createdAt,
           content: blog.attributes.description,
           likes: 0,
           comments: 0,
@@ -64,12 +73,44 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
         setFetchedAll(true)
       }
       setListData(listData);
-      console.log(listData.length);
-
+    }
+    function min(x, y) { 
+      if (x < y) return x;
+      return y;
+    }
+    function renderTags(value) {
+      console.log('renderTags', pageNumber);
+     
+      value.data.forEach((tag) =>{
+        let content = ''
+        const blogs = tag.attributes.blogs
+        console.log(blogs.data);
+        for (let i = 0; i < min(10, blogs.data.length); i++) {
+          content += blogs.data[i].attributes.title 
+          if (i != blogs.data.length - 1) content += " - "
+        }
+        if (blogs.length == 11) content += " - ..."
+        listData.push({
+          href: 'https://ant.design',
+          title: '# ' + tag.attributes.tag ,
+          avatar: 'https://hfcm.nl/wp-content/uploads/2020/03/Hashtag-01.png',
+          image: 'https://hfcm.nl/wp-content/uploads/2020/03/Hashtag-01.png',
+          description: tag.attributes.createdAt,
+          content: content,
+          likes: null,
+          comments: null,
+          uid: 't' + tag.id,
+        });
+      })
+      if (checkPageDone(value)){
+        setFetchedAll(true)
+      }
+      setListData(listData);
     }
 
     const renders = {
-      SEARCH_FOR_BLOGS_AND_WRITERS: renderBlogsAndWriters
+      SEARCH_FOR_BLOGS_AND_WRITERS: renderBlogsAndWriters,
+      SEARCH_FOR_TAGS: renderTags,
     }
 
     function dataCallback(value) {
@@ -78,15 +119,6 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
       renders[listViewerSearchFor](value)
       setLoading(false)
     }
-
-    React.useEffect(() => {
-      console.log("Page number is ", pageNumber);
-      console.log("calling get data")
-      getDataMethod(dataCallback, pageNumber)
-    }, []);
-    
-
-
     const onLoadMore = () => {
       console.log('onLoadMore')
       console.log(pageNumber);
@@ -111,19 +143,19 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
     function renderItem(item) {
       return (
       <List.Item
-      key={item.uid}
-      actions={[
-        <IconText icon={LikeOutlined} text={item.likes} key="list-vertical-like-o" />,
-        <IconText icon={MessageOutlined} text={item.comments} key="list-vertical-message" />,
-      ]}
-      extra={
-        <img
-          width={172}
-          alt="logo"
-          src={item.image}
-        />
-      }
-    >
+        key={item.uid}
+        actions={[
+          (item.likes == null || <IconText icon={LikeOutlined} text={item.likes} key="list-vertical-like-o" />),
+          (item.comments == null || <IconText icon={MessageOutlined} text={item.comments} key="list-vertical-message" />),
+        ]}
+        extra={
+          <img
+            width={172}
+            alt="logo"
+            src={item.image}
+          />
+        }
+      >
       <List.Item.Meta
         avatar={<Avatar src={item.avatar} />}
         title={<a href={item.href}>{item.title}</a>}
@@ -136,7 +168,7 @@ function ListViewer({getDataMethod, listViewerSearchFor}) {
     return (
       <List
       key = {123}
-      style={{marginLeft: '60px'}}
+      style={{marginLeft: '20%', marginRight: '20%', marginTop: '50px'}}
       itemLayout="vertical"
       size="large"
       loadMore={loadMore}

@@ -116,6 +116,22 @@ function searchBlogs(callback, value, pageNumber) {
     callStrApi("serach-blogs", "/blogs", q, callback)
 }
 
+function searchTags(callback, value, pageNumber) {
+    let q = {
+        sort: ['updatedAt:asc'],
+        populate: ['blogs'],
+        filters: contains(
+            value,
+            ['tag']
+        ),
+        pagination: {
+            pageSize: defaultPageSize,
+            page: pageNumber,
+        },
+    }
+    callStrApi("serach-tags", "/tags", q, callback)
+}
+
 function search(callback, value, pageNumber) {
     const wrapperCallback = (writers) => {
         searchBlogs((blogs)=>{
@@ -131,7 +147,7 @@ function appendStrUrl(url) {
     return STR_API_ADDRESS + url
 }
 
-export {defaultPageSize, appendStrUrl, search, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
+export {defaultPageSize, appendStrUrl, search, searchTags, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
 
 
 
