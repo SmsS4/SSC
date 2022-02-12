@@ -19,4 +19,15 @@ module.exports =  ({ env }) => ([
       port: env("PROMETHEUS_PORT")
     },
   },
+  {
+    resolve: 'middlewares/cache.js',
+    config: {
+      port: env("REDIS_PORT"),
+      host: env("REDIS_HOST"),
+      db: env("REDIS_DB"),
+      cacheRoutes: [
+        "tags", "blog"
+      ]
+    },
+  },
 ]);

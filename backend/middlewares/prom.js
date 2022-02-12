@@ -52,6 +52,7 @@ const total_requests_time = new client.Counter({
 });
 register.registerMetric(total_requests_time);
 
+let store = null
 
 module.exports = (config, { strapi })=> {
     return async (ctx, next) => {
@@ -60,7 +61,7 @@ module.exports = (config, { strapi })=> {
             serverStarted = true;
         }
         const start = Date.now();
-        await next();
+        await next()
         cnt_reqouests.inc();
         const status = ctx.response.status;
         if (status == 200) {
