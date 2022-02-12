@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 import {useState } from "react";
-
+import {
+    SEARCH_FOR_WRITERS,
+    SEARCH_FOR_BLOGS_AND_WRITERS,
+    SEARCH_FOR_BLOGS,
+    SEARCH_FOR_TAGS,
+} from '../enums'
 
 import { useHistory } from "react-router-dom";
 
@@ -18,35 +23,48 @@ const StyledSideNav = styled.div`
 `;
 
 function SideNav(props) {
+    const [activeName, updateActiveName] = (useState("HOME"))
     const [activePath, updateActivePath] = useState(props.location.pathname);
     const state = {
         items: [
             {
               path: '/', /* path is used as id to check which NavItem is active basically */
-              name: 'Home',
+              name: 'HOME',
               css: 'fa fa-fw fa-home',
               key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
             },
             {
-              path: '/writers',
-              name: 'Writers',
-              css: 'fas fa-chalkboard-teacher',
-              key: 2
-            },
+                path: '/search',
+                name: SEARCH_FOR_BLOGS_AND_WRITERS,
+                css: 'fas fa-search',
+                key: 2
+              },
             {
-              path: '/tags',
-              name: 'Tags',
-              css: 'fas fa-hashtag',
+              path: '/search',
+              name: SEARCH_FOR_WRITERS,
+              css: 'fas fa-chalkboard-teacher',
               key: 3
             },
+            {
+              path: '/search',
+              name: SEARCH_FOR_TAGS,
+              css: 'fas fa-hashtag',
+              key: 4
+            },
+            {
+                path: '/search',
+                name: SEARCH_FOR_BLOGS,
+                css: 'far fa-comment-alt',
+                key: 5
+              },
           ]
     }
     const items = state.items;
     const history = useHistory()
-    const onItemClick = (path) => {
-        updateActivePath(path);
-        props.onPathChanged(path)
-    }
+    // const onItemClick = (path) => {
+    //     /// updateActivePath(path);
+    //     props.onPathChanged(path, history)
+    // }
     return (
         <StyledSideNav>
             {
@@ -56,8 +74,14 @@ function SideNav(props) {
                             path={item.path}
                             name={item.name}
                             css={item.css}
-                            onItemClick={onItemClick}
-                            active={item.path === activePath}
+                            onItemClick={
+                                /// onItemClick
+                                (path) => {
+                                    updateActiveName(item.name)
+                                    props.onPathChanged(item.name, history)
+                                }
+                            }
+                            active={item.name === activeName}
                             key={item.key}
                         />
                     );
