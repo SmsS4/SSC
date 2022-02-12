@@ -8,14 +8,14 @@ import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
-import {search, searchBlogs, searchWriters, getBlogs, setPageSize, searchTags, getWriter} from './StrApi';
+import {search, searchBlogs, searchWriters, getBlogs, setPageSize, searchTags, getWriter, getBlogsByTag} from './StrApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ListViewer from './ListShower';
 import {STR_API_ADDRESS} from './config'
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import {SEARCH_FOR_BLOGS, SEARCH_FOR_WRITERS, SEARCH_FOR_BLOGS_AND_WRITERS, SEARCH_FOR_TAGS } from './enums';
+import {SEARCH_FOR_BLOGS, SEARCH_FOR_WRITERS, SEARCH_FOR_ALL, SEARCH_FOR_TAGS, SEARCH_FOR_BLOG_BY_TAG } from './enums';
 import Profile from './Writer';
 
 
@@ -24,10 +24,11 @@ import Profile from './Writer';
 
 function App() {
   const [listViewerSearchFor, setListViewerSearchFor] = useState(
-    SEARCH_FOR_BLOGS_AND_WRITERS
+    SEARCH_FOR_ALL
   );
   const [searchBarValue, setSearchBarValue] = useState(null);
   const [reRender, setReRender] = useState(0)
+  const [clickedItem, setClickedItem] = useState(null)
 
   function onPathChanged(clickedOn, history) {
     setListViewerSearchFor(clickedOn)
@@ -42,12 +43,19 @@ function App() {
   }
 
   const searchForMethods = {
-    SEARCH_FOR_BLOGS_AND_WRITERS: (callback, pageNumber) => {search(callback, searchBarValue, pageNumber)},
+    SEARCH_FOR_ALL: (callback, pageNumber) => {search(callback, searchBarValue, pageNumber)},
     SEARCH_FOR_TAGS: (callback, pageNumber) => {searchTags(callback, searchBarValue, pageNumber)},
     SEARCH_FOR_BLOGS: (callback, pageNumber) => {searchBlogs(callback, searchBarValue, pageNumber)},
     SEARCH_FOR_WRITERS: (callback, pageNumber) => {searchWriters(callback, searchBarValue, pageNumber)},
+    SEARCH_FOR_BLOG_BY_TAG: (callback, pageNumber) => {
+      getBlogsByTag(
+        callback,
+        clickedItem.title.substr(2),
+        pageNumber
+      )
+    }
   }
-
+  
   function listViewerCallback(callback, pageNumber) {
     searchForMethods[listViewerSearchFor](callback, pageNumber);
   }
@@ -61,6 +69,10 @@ function App() {
     history.push("/profile")
   }
 
+  function showTagBlogs(tag, history) {
+
+  }
+
   function clickCallback(item, history) {
     console.log('clickCallback', item)
     if (item.type == "writer") {
@@ -68,6 +80,11 @@ function App() {
         (writer) => {ShowWriter(writer, history)},
         item.uid,
       )
+    } else if (item.type == 'tag') {
+      setClickedItem(item)
+      setListViewerSearchFor(SEARCH_FOR_BLOG_BY_TAG)
+      setReRender(reRender + 1);
+      history.push("/search")
     }
   }
 

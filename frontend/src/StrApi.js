@@ -89,6 +89,26 @@ function getWriter(callback, writerId) {
     callStrApi("get-writer", "/writers/" + writerId, q, callback);
 }
 
+function getBlogsByTag(callback, value, pageNumber) {
+    let q = {
+        sort: ['publishedAt:asc'],
+        filters: contains(
+            value,
+            [],
+            [
+                {collection:"tags", field: "tag"},
+            ]
+        ),
+        populate: ['writer', 'writer.avatar'],
+        pagination: {
+            pageSize: defaultPageSize,
+            page: pageNumber,
+        },
+    }
+    callStrApi("get-blgos-by-tag", "/blogs" , q, callback);
+
+}
+
 function searchWriters(callback, value, pageNumber) {
     let q = {
         sort: ['publishedAt:asc'],
@@ -141,11 +161,22 @@ function searchTags(callback, value, pageNumber) {
 
 function search(callback, value, pageNumber) {
     const wrapperCallback = (writers) => {
-        searchBlogs((blogs)=>{
-            callback(
-                {'writers': writers, 'blogs': blogs}
+        const wrapperForTag = (blogs) => {
+            searchTags(
+                (tags) => {
+                    callback(
+                        {
+                            'writers': writers,
+                            'blogs': blogs,
+                            'tags': tags,
+                        }
+                    )
+                },
+                value,
+                pageNumber
             )
-        }, value, pageNumber)
+        };
+        searchBlogs(wrapperForTag, value, pageNumber)
     };
     searchWriters(wrapperCallback, value, pageNumber)
 }
@@ -154,7 +185,7 @@ function appendStrUrl(url) {
     return STR_API_ADDRESS + url
 }
 
-export {defaultPageSize, getWriter, appendStrUrl, search, searchTags, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
+export {defaultPageSize, getBlogsByTag, getWriter, appendStrUrl, search, searchTags, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
 
 
 

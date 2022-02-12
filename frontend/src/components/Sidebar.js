@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-d
 import {useState } from "react";
 import {
     SEARCH_FOR_WRITERS,
-    SEARCH_FOR_BLOGS_AND_WRITERS,
+    SEARCH_FOR_ALL,
     SEARCH_FOR_BLOGS,
     SEARCH_FOR_TAGS,
 } from '../enums'
@@ -34,7 +34,7 @@ function SideNav(props) {
             },
             {
                 path: '/search',
-                name: SEARCH_FOR_BLOGS_AND_WRITERS,
+                name: SEARCH_FOR_ALL,
                 css: 'fas fa-search',
                 key: 2
               },
