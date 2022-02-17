@@ -8,7 +8,7 @@ import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
-import {search, searchBlogs, searchWriters, getBlogs, setPageSize, searchTags, getWriter, getBlogsByTag} from './StrApi';
+import {search, searchBlogs, searchWriters, getBlogs, setPageSize, searchTags, getWriter, getBlog, getBlogsByTag} from './StrApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ListViewer from './ListShower';
@@ -85,6 +85,12 @@ function App() {
       setListViewerSearchFor(SEARCH_FOR_BLOG_BY_TAG)
       setReRender(reRender + 1);
       history.push("/search")
+    } else if (item.type == 'blog') {
+      // TODO
+      // getBlog(
+      //   (blog) => {},
+      //   item.uid
+      // );
     }
   }
 

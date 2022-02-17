@@ -89,6 +89,13 @@ function getWriter(callback, writerId) {
     callStrApi("get-writer", "/writers/" + writerId, q, callback);
 }
 
+function getBlog(callback, blogId) {
+    let q = {
+        populate: ['blocks', 'blocks.media'],
+    }
+    callStrApi("get-blog", "/blogs/" + blogId, q, callback);
+}
+
 function getBlogsByTag(callback, value, pageNumber) {
     let q = {
         sort: ['publishedAt:asc'],
@@ -185,7 +192,7 @@ function appendStrUrl(url) {
     return STR_API_ADDRESS + url
 }
 
-export {defaultPageSize, getBlogsByTag, getWriter, appendStrUrl, search, searchTags, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
+export {defaultPageSize, getBlogsByTag, getWriter, getBlog, appendStrUrl, search, searchTags, searchWriters, searchBlogs, getBlogs, getWriters, setPageSize}
 
 
 
