@@ -92,11 +92,10 @@ function App() {
       setReRender(reRender + 1);
       history.push("/search")
     } else if (item.type == 'blog') {
-      // TODO
-      // getBlog(
-      //   (blogData) => {},
-      //   item.uid
-      // );
+      getBlog(
+        (blogData) => {ShowBlog(blogData, history)},
+        item.uid,
+      );
     }
   }
 
