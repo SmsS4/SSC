@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import {SEARCH_FOR_BLOGS, SEARCH_FOR_WRITERS, SEARCH_FOR_ALL, SEARCH_FOR_TAGS, SEARCH_FOR_BLOG_BY_TAG } from './enums';
 import Profile from './Writer';
-
+import BlogPost from './Blog';
 
 
 
@@ -63,10 +63,16 @@ function App() {
 
 
   const [writer ,setWritere] = useState(null)
+  const [blog ,setBloge] = useState(null)
 
   function ShowWriter(writer, history) {
     setWritere(writer)
     history.push("/profile")
+  }
+
+  function ShowBlog(blogData, history) {
+    setBloge(blogData)
+    history.push("/blogpost")
   }
 
   function showTagBlogs(tag, history) {
@@ -88,7 +94,7 @@ function App() {
     } else if (item.type == 'blog') {
       // TODO
       // getBlog(
-      //   (blog) => {},
+      //   (blogData) => {},
       //   item.uid
       // );
     }
@@ -122,6 +128,11 @@ function App() {
           <Route exact path="/profile">
             <Profile
               item={writer}
+            />
+          </Route>
+          <Route exact path="/blogpost">
+            <BlogPost
+              item={blog}
             />
           </Route>
           <Route path="/search">
