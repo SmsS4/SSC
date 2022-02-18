@@ -4,7 +4,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavigationBar from './components/NavigationBar';
 import React from 'react'
-import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
@@ -18,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import {SEARCH_FOR_BLOGS, SEARCH_FOR_WRITERS, SEARCH_FOR_ALL, SEARCH_FOR_TAGS, SEARCH_FOR_BLOG_BY_TAG } from './enums';
 import Profile from './Writer';
 import BlogPost from './Blog';
+import Home from './Home';
 
 
 
@@ -122,7 +122,7 @@ function App() {
         <Sidebar onPathChanged={onPathChanged}/>
         <Switch>
           <Route exact path="/">
-
+            <Home/>
           </Route>
           <Route exact path="/profile">
             <Profile
