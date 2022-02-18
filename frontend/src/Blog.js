@@ -38,6 +38,46 @@ function getBlogData(item) {
     }
 }
 
+const colStyle = {
+    minWidth:'90%',
+    padding:'10px',
+}
+const cardStyle = {
+    height: '100%',
+}
+
+function MediaComp({medias}) {
+    return (
+        <>
+            {medias.map(function(mediaUrl, idx){
+                return (
+                    <div key={idx}>
+                        {/* TODO: support Media like movie and image: component*/}
+                        <img src={mediaUrl} />
+                    </div>
+                )
+            })}
+        </>
+    )
+}
+
+function Blocks({blocks}) {
+    return (
+        <>
+            {blocks.map(function(block, idx){
+                return (
+                    <div key={idx}>
+                        <Card bordered={false} style={cardStyle}>
+                            {block.text}
+                        </Card>
+                        <MediaComp medias={block.media} />
+                    </div>
+                )
+            })}
+        </>
+    )
+}
+
 function BlogPost({item}) {
     const {
         blog_title,
@@ -46,16 +86,9 @@ function BlogPost({item}) {
         blocks,
     } = getBlogData(item);
 
-    const colStyle = {
-        minWidth:'90%',
-        padding:'10px',
-    }
-    const cardStyle = {
-        height: '100%',
-    }
     return (
         <div style={{
-            marginLeft:'100px',
+            marginLeft:'160px',
             marginRight:'30px',
             marginTop:'5%'
         }}>
@@ -70,23 +103,9 @@ function BlogPost({item}) {
                             <br/><br/>
                             <Meta description={description} />
                             <br/>
-                            {blocks.map(function(d, idx){
-                                return (
-                                    <div key={idx}>
-                                        <Card bordered={false} style={cardStyle}>
-                                            {d.text}
-                                        </Card>
-                                        {d.media.map(function(d2, idx2){
-                                            return (
-                                                <div key={idx2}>
-                                                    {/* TODO: support Media like movie and image: component*/}
-                                                    <img src={d2} />
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                )
-                            })}
+                            <Meta description={time} />
+                            <br/>
+                            <Blocks blocks={blocks} />
                         </Card>
                 </Col>
             </Row>
