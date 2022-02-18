@@ -11,24 +11,26 @@ function getMediaUrl(media) {
 }
 
 function getBlogData(item) {
-    // TODO: extract data from 'item' object
     console.log("Blog post data... here:");
     console.log(item);
     const attrs = item.data.attributes;
-    const blocks = attrs.blocks;
-    // for (const block of blocks) {
-    //     console.log(block);
-    //     if (block.media.data != null) {
-    //         console.log("salam")
-    //     } else {
-    //         console.log("media nadarad!")
-    //     }
-    // }
+    const blocks = [];
+
+    for (const block of attrs.blocks) {
+        const myobj = {'text': '', 'media': []};
+        myobj.text = block.text;
+        if (block.media.data != null) {
+            for (const media of block.media.data) {
+                myobj.media.push(getMediaUrl(media));
+            }
+        }
+        blocks.push(myobj);
+    }
 
     return {
         blog_title: attrs.title,
         time: attrs.publishedAt,
-        blocks: attrs.blocks,
+        blocks: blocks,
     }
 }
 
