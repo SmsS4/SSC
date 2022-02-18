@@ -1,49 +1,104 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import { Carousel } from 'antd';
 
-const GridWrapper = styled.div`
-  display: grid;
-  grid-gap: 10px;
-  margin-top: 1em;
-  margin-left: 6em;
-  margin-right: 6em;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: minmax(25px, auto);
-`;
+const contentStyle = {
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
 
+const backG = {
+  background: '#2a2b2a',
+  height: '900px',
+  marginLeft: '75px'
+}
+
+const slide = {
+  height: '900px',
+  background: '#474747',
+}
+
+const head = {
+  height: '700px'
+}
+
+const hStyle = {
+  textAlign: 'center',
+  color: '#adad86',
+  marginTop: '100px',
+  marginBottom: '150px'
+}
+
+const tStyle = {
+  height: '500px',
+  marginTop: '50px',
+  textAlign: 'center',
+  color: '#adad86',
+  fontSize: '30px'
+}
 function Home() {
   return (
-  <>
-    <div>
-      <Avatar size={64} icon={<UserOutlined />} />
-      <Avatar size="large" icon={<UserOutlined />} />
-      <Avatar icon={<UserOutlined />} />
-      <Avatar size="small" icon={<UserOutlined />} />
-    </div>
-    <div>
-      <Avatar shape="square" size={64} icon={<UserOutlined />} />
-      <Avatar shape="square" size="large" icon={<UserOutlined />} />
-      <Avatar shape="square" icon={<UserOutlined />} />
-      <Avatar shape="square" size="small" icon={<UserOutlined />} />
-    </div>
-    <GridWrapper>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-      <p>This is a paragraph and I am writing on the home page</p>
-      <p>This is another paragraph, hi hey hello whatsup yo</p>
-    </GridWrapper>
-  </>
+    <>
+      <div style={backG}>
+        <Carousel effect="fade">
+          <div style={slide}>
+            <div style={head}>
+              <h1 style={hStyle}>خوش آمدید</h1>
+              <h3 style={tStyle}>با مجازی شدن آموزش به واسط همهگیری ویروس کرونا، این بستر در دانشگاه فراهم شد که بتوان ارائههای با کیفیت
+زیادی به صورت وبینار در دانشگاه برگزار شود و به علت امکان ضبط این جلسات، در این مدت محتوی زیادی در مباحث
+گوناگون تولید شده و در دسترس است. لازمه بهرهمندی حداکثری از این محتوا، وجود پلتفرم مناسبی جهت سازماندهی و
+انتشار این مطالب است که در حال حاضر فقدان آن در دانشگاه و دانشکده حس میشود.
+در این پروژه قصد داریم پلتفرمی برای انتشار و سازماندهی ارائههای مجازی برگزار شده در انجمن علمی دانشکده
+مهندسی کامپیوتر دانشگاه صنعتی شریف توسعه دهیم و انتظار داریم با این کار امکان استفاده و بهرهمندی دانشجویان و
+سایر افراد از این محتوا را فراهم آوریم</h3>
+            </div>
+          </div>
+
+          <div style={slide}>
+            <div style={head}>
+              <h1 style={hStyle}>جست و جو</h1>
+              <h3 style={tStyle}>ازی شدن آموزش به واسط همهگیری ویروس کرونا، این بستر در دانشگاه فراهم شد که بتوان ارائههای با کیفیت
+زیادی به صورت وبینار در دانشگاه برگزار شود و به علت امکان ضبط این جلسات، در این مدت محتوی زیادی در مباحث
+گوناگون تولید شده و در دسترس است. لازمه بهرهمندی حداکثری از این محتوا، وجود پلتفرم مناسبی جهت سازماندهی و
+انتشار این مطالب است که در حال حاضر فقدان آن در دانشگاه و دانشکده حس میشود.
+در این پروژه قصد داریم پلتفرمی برای انتشار و سازماندهی ارائههای مجازی برگزار شده در انجمن علمی دانشکده
+مهندسی کامپیوتر دانشگاه صنعتی شریف توسعه دهیم و انتظار داریم با این کار امکان استفاده و بهرهمندی دانشجویان و
+سایر افراد از این محتوا را فراهم آوریم</h3>
+            </div>
+          </div>
+
+          <div style={slide}>
+            <div style={head}>
+              <h1 style={hStyle}>دیدن بلاگ</h1>
+              <h3 style={tStyle}>ازی شدن آموزش به واسط همهگیری ویروس کرونا، این بستر در دانشگاه فراهم شد که بتوان ارائههای با کیفیت
+زیادی به صورت وبینار در دانشگاه برگزار شود و به علت امکان ضبط این جلسات، در این مدت محتوی زیادی در مباحث
+گوناگون تولید شده و در دسترس است. لازمه بهرهمندی حداکثری از این محتوا، وجود پلتفرم مناسبی جهت سازماندهی و
+انتشار این مطالب است که در حال حاضر فقدان آن در دانشگاه و دانشکده حس میشود.
+در این پروژه قصد داریم پلتفرمی برای انتشار و سازماندهی ارائههای مجازی برگزار شده در انجمن علمی دانشکده
+مهندسی کامپیوتر دانشگاه صنعتی شریف توسعه دهیم و انتظار داریم با این کار امکان استفاده و بهرهمندی دانشجویان و
+سایر افراد از این محتوا را فراهم آوریم</h3>
+            </div>
+          </div>
+
+          <div style={slide}>
+            <div style={head}>
+              <h1 style={hStyle}>دیدن نویسنده</h1>
+              <h3 style={tStyle}>ازی شدن آموزش به واسط همهگیری ویروس کرونا، این بستر در دانشگاه فراهم شد که بتوان ارائههای با کیفیت
+زیادی به صورت وبینار در دانشگاه برگزار شود و به علت امکان ضبط این جلسات، در این مدت محتوی زیادی در مباحث
+گوناگون تولید شده و در دسترس است. لازمه بهرهمندی حداکثری از این محتوا، وجود پلتفرم مناسبی جهت سازماندهی و
+انتشار این مطالب است که در حال حاضر فقدان آن در دانشگاه و دانشکده حس میشود.
+در این پروژه قصد داریم پلتفرمی برای انتشار و سازماندهی ارائههای مجازی برگزار شده در انجمن علمی دانشکده
+مهندسی کامپیوتر دانشگاه صنعتی شریف توسعه دهیم و انتظار داریم با این کار امکان استفاده و بهرهمندی دانشجویان و
+سایر افراد از این محتوا را فراهم آوریم</h3>
+            </div>
+          </div>
+        </Carousel>
+      </div>
+    </>
   )
 }
 
