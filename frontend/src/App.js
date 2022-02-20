@@ -67,6 +67,7 @@ function App() {
 
   function ShowWriter(writer, history) {
     setWritere(writer)
+    console.log("look!", writer);
     history.push("/profile")
   }
 

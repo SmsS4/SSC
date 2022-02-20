@@ -27,7 +27,7 @@ function Bio({bio}) {
         {bioLines}
         </>
     )
-}
+} 
 
 function SplitTimeLine({timeLine}) {
     let tls = []
@@ -77,6 +77,7 @@ function Profile({item}) {
 
     const colStyle = {
         minWidth:'30%',
+        maxWidth: '30%',
         padding:'10px',
     }
     const cardStyle = {
